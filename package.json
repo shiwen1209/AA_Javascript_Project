@@ -1,0 +1,24 @@
+{
+  "name": "aa_javascript_project",
+  "version": "1.0.0",
+  "description": "Game summary - Space Rescue  - game is happneing in a spaceship surrounded by boarders - this is a single player game  - player will be represneted by a avatar - player has limited time to navigate inside the spaceship and complete different tasks - upon completion of tasks player's score is  - if player cannot finish all the tasks, spaceship will crash",
+  "main": "index.js",
+  "browserslist": [
+    "defaults"
+  ],
+  "scripts": {
+    "start": "webpack --watch --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiwen1209/AA_Javascript_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shiwen1209/AA_Javascript_Project/issues"
+  },
+  "homepage": "https://github.com/shiwen1209/AA_Javascript_Project#readme"
+}
