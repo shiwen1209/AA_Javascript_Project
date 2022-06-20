@@ -1,33 +1,28 @@
 Game summary
-- Space Rescue 
-- game is happneing in a spaceship surrounded by boarders
+- this game is about connecting circuts of the same color
 - this is a single player game 
-- player will be represneted by a avatar
-- player has limited time to navigate inside the spaceship and complete different tasks
-- upon completion of tasks player's score is 
-- if player cannot finish all the tasks, spaceship will crash 
+- player has limited time connect the circuits inside the spaceship to rescue the spaceship 
+- upon completion a level player progress to the next level
+- if player cannot connect all the circuts in alloted time, game is over
 
 Functionality & MVPs
-1. spaceship will be moving throught the space
-2. player will be able to navigate within the spaceship with keys
-3. player complete tasks, and get scores 
-4. player complete all tasks and win
-5. spaceship crash into meteroid (visual effact)
+1. spaceship moving through the space
+2. inside the spaceship there're pair of empty circuts of the same color
+3. player can click the circuit and connect it to the other circuit of the same color
+4. wires of different colors cannot cross each other 
+5. game will progress by level, circuits connection will become more complex 
 
 
-In addition, this project will include:
-1. moving background to give an illusion that the space ship is moving 
-2. player can change their outfit/hat(optional)
+In addtion
+1. potentially progress to a level where spaceship will go dark and player will
+need to connect circuts in dark mode
 
 
 wireframe
-https://wireframe.cc/5JgpxK
+https://wireframe.cc/5JgpxK (outdated)
 
 Technologies, Libraries, APIs
 - Canvas
-- sprite 
-- others...
-
 
 Timeline
 Day 1 Thusday 
@@ -38,31 +33,23 @@ Day 2 Friday
 - draw ship interior 
 
 Day 3 Saturday
-- create player 
-- player movement 
-- player score
+- work on circuts 
 
 Day4 Sunday
-- create tasks
+- work on wire connections 
 
 Day 5 Monday
-- spaceship movement
-- spaceship crash / blow up visiual efevct
+- produce a playable version of Level 1 of the game
 
 Day 6 Tuesday 
-- fine tune details 
-- instructions 
-- potential sound effect
+- refine level 1 , potentially add level 2 and 3
 
 Day 7 Wednesday 
 - finalize
 - refinement
 
 Bonus Features (if time permit)
-- different levels
-- more complicated tasks 
-- multiplayer 
-- computer player
+- dark mode
 
 
 https://github.com/shiwen1209/AA_Javascript_Project

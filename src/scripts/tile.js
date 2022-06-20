@@ -5,8 +5,8 @@ export default class Tile {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
-        this.color = '#DAF7A6';
-        this.clickTile = this.clickTile.bind(this);
+        this.fillColor = 'grey';
+        this.pos = []; // position in the grid;
         this.draw();
     }
 
@@ -15,25 +15,17 @@ export default class Tile {
         this.ctx.strokeRect(this.x, this.y, Tile.LENGTH, Tile.LENGTH);
         this.ctx.strokeStyle = 'lightgrey';
         this.ctx.lineWidth = 3;
-        this.ctx.fillStyle = this.color;
+        this.ctx.fillStyle = this.fillColor;
         this.ctx.fillRect(this.x, this.y, Tile.LENGTH, Tile.LENGTH);
         this.ctx.stroke();
         this.ctx.closePath();
     }
 
  
-    flip(){
-        this.color = 'yellow';
-        this.draw()
-
-
-    }
-
-    clickTile(x, y){
-        if ((x > this.x && x < (this.x + Tile.LENGTH)) && 
-            (y > this.y && y < (this.y + Tile.LENGTH))) {
-            this.flip();
-            console.log("tile got flipped")
+    flip(activeColor){
+        if (activeColor != null){
+            this.fillColor = activeColor;
+            this.draw()
         }
     }
 

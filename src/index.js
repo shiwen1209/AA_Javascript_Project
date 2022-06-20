@@ -14,16 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
         game.draw();
     }, 100)
 
-    canvas.addEventListener("click", (e) =>{
+
+    canvas.addEventListener("click", (e) => {
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        game.board.tiles.forEach((tile) => {
-            tile.clickTile(x, y);
-            console.log(tile.color);
-        })
-    } )
+        game.board.clickBoard(x, y);
+    })
 
+    canvas.addEventListener("mousemove", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        game.board.hoverBoard(x, y);
+    })
 
 
 
