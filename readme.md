@@ -50,6 +50,7 @@ Day 7 Wednesday
 
 Bonus Features (if time permit)
 - dark mode
+- spaceship blow up
 
 
 https://github.com/shiwen1209/AA_Javascript_Project
