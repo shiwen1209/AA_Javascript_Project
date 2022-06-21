@@ -15,9 +15,9 @@ export default class Game {
     }
 
     draw(){
-        this.ctx.clearRect(0, 0, 1400, 650);
+        this.ctx.clearRect(0, 0, 1600, 750);
         this.ctx.fillStyle = "#0E2650";
-        this.ctx.fillRect(0, 0, 1400, 650);
+        this.ctx.fillRect(0, 0, 1600, 750);
         this.stars.draw();
         this.ship.draw();
         this.flame.draw();

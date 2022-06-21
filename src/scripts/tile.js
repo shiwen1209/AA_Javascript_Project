@@ -1,12 +1,13 @@
 export default class Tile {
     constructor(ctx, x, y){
         Tile.LENGTH = 48;
-
+        Tile.DEFAULTCOLOR = 'grey'
         this.ctx = ctx;
         this.x = x;
         this.y = y;
-        this.fillColor = 'grey';
+        this.fillColor = Tile.DEFAULTCOLOR;
         this.pos = []; // position in the grid;
+        this.clicked = false;
         this.draw();
     }
 
@@ -23,10 +24,26 @@ export default class Tile {
 
  
     flip(activeColor){
-        if (activeColor != null){
+        if(activeColor === null){return false}
+        if (this.fillColor != activeColor){
             this.fillColor = activeColor;
-            this.draw()
-        }
+            this.draw();
+            return true;
+        } 
+        return false;
+    }
+
+    clickTile(activeColor){
+            if (activeColor === this.fillColor ) {
+                return null;
+            } else if (activeColor === null && this.fillColor != Tile.DEFAULTCOLOR) {
+                return this.fillColor;
+            } else if(activeColor === Tile.DEFAULTCOLOR){
+                return null;
+            } else {
+                return this.fillColor;
+            }
+
     }
 
 

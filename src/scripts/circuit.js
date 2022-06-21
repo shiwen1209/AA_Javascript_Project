@@ -1,9 +1,10 @@
 import Tile from "./tile";
 
-export default class Circut extends Tile {
+export default class Circuit extends Tile {
     constructor(ctx, x, y, color){
         super(ctx, x, y);
         this.color = color;
+        this.fillColor = null;
         this.pos = []; //position in the grid
         // this.clickCircuit = this.clickCircuit.bind(this);
         this.draw();

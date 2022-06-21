@@ -43,6 +43,7 @@ Day 5 Monday
 
 Day 6 Tuesday 
 - refine level 1 , potentially add level 2 and 3
+- add game instructions 
 
 Day 7 Wednesday 
 - finalize
@@ -51,6 +52,7 @@ Day 7 Wednesday
 Bonus Features (if time permit)
 - dark mode
 - spaceship blow up
+- add sound
 
 
 https://github.com/shiwen1209/AA_Javascript_Project
