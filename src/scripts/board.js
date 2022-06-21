@@ -2,35 +2,20 @@ import Tile from "./tile";
 import Circuit from "./circuit";
 
 export default class Board {
-    constructor(ctx){
+    constructor(ctx, circuits = {}, size = 7){
         Board.STARTX = 300;
-        Board.STARTY = 155;
-        Board.SIZE = 7;    
+        Board.STARTY = 155; 
         Board.DIRS = [[0, 1], [0, -1],[1, 0],[-1, 0]]
 
-        this.circuitHash = {
-            "blue": [[0, 1], [6, 2]], 
-            "yellow": [[5, 2], [0, 4]],
-            "red": [[6, 3], [1, 3]],
-            "purple": [[1, 4], [6, 5]],
-            "green": [[0, 5], [5, 5]]
-        }
-
-        this.colorStatus = {
-            "blue": false, 
-            "red": false,
-            "yellow": false,
-            "purple": false,
-            "green": false
-        }
-
-        this.colorStacks = {
-            "blue": [],
-            "red": [],
-            "yellow": [],
-            "purple": [],
-            "green": []
-        }
+        this.size = size;
+        this.circuitHash = circuits;
+        this.colorStatus = {};
+        this.colorStacks = {};
+        this.circuitColors = Object.keys(this.circuitHash)
+        this.circuitColors.forEach((color)=>{
+            this.colorStatus[color] = false;
+            this.colorStacks[color] = [];
+        })
 
         this.ctx = ctx;
         this.tiles = [];
@@ -49,9 +34,9 @@ export default class Board {
 
     populateGrid(){
         let newArr = [];
-        for(let i=0; i< Board.SIZE; i++){
+        for(let i=0; i< this.size; i++){
             let subArr = []
-            for(let j=0; j<Board.SIZE; j++){
+            for(let j=0; j<this.size; j++){
                 subArr.push(null);
             }
             newArr.push(subArr);
@@ -83,8 +68,8 @@ export default class Board {
     
         let tile = new Tile(this.ctx, 0, 0);
 
-        for(let i= 0; i < Board.SIZE; i++){
-            for(let j= 0; j < Board.SIZE; j++){
+        for(let i= 0; i < this.size; i++){
+            for(let j= 0; j < this.size; j++){
                 if(!circuit_poses.includes(JSON.stringify([i, j]))){
                     let y = (i * Tile.LENGTH) + Board.STARTY;
                     let x = (j * Tile.LENGTH) + Board.STARTX;
@@ -143,10 +128,15 @@ export default class Board {
                 }
                 console.log("win? :" + this.win());
                 console.log(this.colorStatus);
-                if(this.win()){
-                    alert("You won!");}
-                    this.activeColor = null;
-            }    
+
+
+                // if(this.win()){
+                    
+                // }
+
+                this.activeColor = null;
+                   
+        
         } else if (target != null && target.constructor === Tile) {
             this.activeColor = target.clickTile(this.activeColor);
             if (this.win()) {
@@ -155,7 +145,7 @@ export default class Board {
         }
 
         console.log("active color now is" + this.activeColor);
-    }
+    }}
 
     hoverBoard(x, y){
         let target = null;
@@ -239,7 +229,7 @@ export default class Board {
 
 
     wireConnected(color){
-        console.log("wire color is " + color);
+        // console.log("wire color is " + color);
         let startPos = this.circuitHash[color][0];
         let endPos = this.circuitHash[color][1];
         if (this.searchCircuit(startPos, endPos)){
@@ -295,8 +285,8 @@ export default class Board {
     }
 
     validPos(pos){
-        if(pos[0] >= 0 && pos[0] < Board.SIZE &&
-            pos[1] >= 0 && pos[1] < Board.SIZE)
+        if(pos[0] >= 0 && pos[0] < this.size &&
+            pos[1] >= 0 && pos[1] < this.size)
             {return true} else {return false}
     }
 
@@ -313,6 +303,7 @@ export default class Board {
     }
 
     win(){
+        if(this.circuitColors.length === 0){return false}
         let result = true;
         Object.keys(this.colorStatus).forEach((color)=>{
             if (!this.wireConnected(color)){result = false}

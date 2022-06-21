@@ -1,5 +1,7 @@
+import Board from './scripts/board';
 import Game from './scripts/game';
-import Instruction from './scripts/instruction';
+const Level = require("./scripts/level");
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -30,6 +32,17 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
+    let btn = document.getElementById('test');
+    let instruction = document.getElementById('instruction')
+
+    btn.addEventListener('click', function(e){
+        instruction.innerHTML = ""
+        if (game.level === 0) { game.level += 1}
+        game.board = new Board(ctx, Level[game.level])
+        game.winStatus = false;
+        
+
+    });
 
 });
 

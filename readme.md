@@ -56,3 +56,10 @@ Bonus Features (if time permit)
 
 
 https://github.com/shiwen1209/AA_Javascript_Project
+
+
+
+1)  loading game, instruction, game won, game over , next level
+3) game stats
+2) 10 different new levels
+4) circuit, tile, and wire appearance
