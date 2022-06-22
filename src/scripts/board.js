@@ -32,8 +32,8 @@ export default class Board {
         this.currentObject = null;
         this.previousObject = null;
 
-        this.time = 10;
-        this.baseScore = 1000; 
+        this.time = 20;
+        this.baseScore = 200; // per color pair 
         this.currentScore = 0;
         this.countDown();
         this.draw();
@@ -56,13 +56,15 @@ export default class Board {
     }
 
     updateScore(){
-        this.currentScore = this.completionStatus()* this.baseScore;
+        this.currentScore = this.completionStatus() 
+            * this.circuitColors.length 
+            * this.baseScore;
     }
 
     finalScore(){
         this.updateScore();
-        base = this.currentScore;
-        bonus = this.time * 100;
+        let base = this.currentScore;
+        let bonus = this.time * 100;
         this.currentScore = base + bonus;
         return this.currentScore;
     }

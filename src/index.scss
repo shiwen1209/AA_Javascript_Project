@@ -93,10 +93,64 @@ ul.game-status {
     width: 350px;
     height: 350px;
     left: 690px;
-    top: 350px;
+    top: 340px;
 
 }
 
 ul.game-status li{
     padding: 10px;
+}
+
+#life {
+    font-family: 'Kanit', sans-serif;
+    color: whitesmoke;
+    position: absolute;
+    font-size: 24px;
+    z-index: 1;
+    width: 200px;
+    height: 30px;
+    left: 350px;
+    top: 200px;
+
+}
+
+#total-score{
+        font-family: 'Kanit', sans-serif;
+        color: whitesmoke;
+        position: absolute;
+        font-size: 24px;
+        z-index: 1;
+        width: 200px;
+        height: 30px;
+        left: 890px;
+        top: 200px;
+
+}
+
+
+ul.top-five {
+    font-family: 'Kanit', sans-serif;
+    position: absolute;
+    font-size: 18px;
+    z-index: 1;
+    width: 350px;
+    height: 350px;
+    left: 390px;
+    top: 340px;
+
+}   
+
+ul.top-five li {
+    padding: 10px;
+}
+
+h3.top-five {
+        position: absolute;
+        font-size: 24px;
+        z-index: 1;
+        width: 350px;
+        height: 50px;
+        left: 600px;
+        top: 280px;
+
 }

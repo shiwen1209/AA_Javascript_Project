@@ -30,7 +30,8 @@ export default class Game {
         this.draw();
         this.winStatus = false;
         this.loseStatus = false;
-        this.gameScore = 0;
+        this.playerScore = 0;
+        this.playerlives = 3;
     }
 
     addStats(){
@@ -42,8 +43,8 @@ export default class Game {
 
         const div = document.getElementById("text-area")
         const ul = document.createElement("ul");
-        div.appendChild(ul)
         ul.className = "game-status"
+        div.appendChild(ul)
         const li1 = document.createElement("li");
         li1.className = "game-status"
         li1.innerHTML = "Current Level:" + "&nbsp" + "&nbsp" + "&nbsp&nbsp&nbsp&nbsp" + `Lvl ${this.level}`
@@ -69,6 +70,7 @@ export default class Game {
         
     }
 
+
     draw(){
         this.ctx.clearRect(0, 0, 1600, 750);
         this.ctx.fillStyle = "#0E2650";
@@ -77,6 +79,16 @@ export default class Game {
         this.ship.draw();
         this.flame.draw();
         this.board.draw();
+        this.drawScoreCard();
+        this.checkWinLose();
+    }
+
+    drawScoreCard(){
+        const p1 = document.getElementById("life");
+        p1.innerHTML = `Lives left: ${this.playerlives}`;
+
+        const p2 = document.getElementById("total-score");
+        p2.innerHTML = `Total score: ${this.playerScore}`;
 
         const li2 = document.getElementById("score");
         if (li2) {
@@ -89,60 +101,89 @@ export default class Game {
         }
 
         const li4 = document.getElementById("timer");
-        if(li4){
-        li4.innerHTML = `Time left: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${this.board.time} seconds`}
-        
-        if(this.winStatus === false){
+        if (li4) {
+            li4.innerHTML = `Time left: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${this.board.time} seconds`
+        }
+    }
+
+    checkWinLose(){
+        if (this.winStatus === false) {
             this.gameWon();
-            
+        } else {
+            this.drawWiningMessage();
         }
 
-        if(this.loseStatus === false){
+        if (this.loseStatus === false) {
             this.gameLost();
         }
+    }
 
-        if(this.winStatus){
+    drawWiningMessage(){
+        const lis = document.querySelectorAll('.game-status');
+        const lis_arr = Array.from(lis);
+        lis_arr.forEach((li) => { if (li) { li.remove() } })
 
-            const lis = document.querySelectorAll('.game-status');
-            const lis_arr = Array.from(lis);
-            console.log(lis);
-            lis_arr.forEach((li)=> {if(li){li.remove()}})
-            this.ctx.beginPath();
-            this.ctx.strokeRect(695, 240, 300, 185); 
-            this.ctx.strokeStyle = '#25B7E6';
-            this.ctx.lineWidth = 5;
-            this.ctx.fillRect(695, 240, 300, 185);
-            this.ctx.fillStyle = "#1C66BB"
-            this.ctx.closePath();
+        this.ctx.beginPath();
+        this.ctx.strokeRect(695, 240, 300, 185);
+        this.ctx.strokeStyle = '#25B7E6';
+        this.ctx.lineWidth = 5;
+        this.ctx.fillRect(695, 240, 300, 185);
+        this.ctx.fillStyle = "#1C66BB"
+        this.ctx.closePath();
 
-            this.ctx.font = "bold 30px Arial";
-            this.ctx.fillStyle = "#E6BA25";
-            this.ctx.fillText(Game.AFFIRMATIONS[this.level], 735, 310); 
-            this.ctx.font = "20px Arial";
-            this.ctx.fillStyle = "#E6BA25";
-            this.ctx.fillText("Click button to continue", 745, 350);
-            this.ctx.fillText("to the next level", 780, 370);  
-            // this.ctx.fillText("Total points: ${this.board.finalScore()}", 800, 370);  
+        this.ctx.font = "bold 30px Arial";
+        this.ctx.fillStyle = "#E6BA25";
+        this.ctx.fillText(Game.AFFIRMATIONS[this.level], 735, 310);
+        this.ctx.font = "20px Arial";
+        this.ctx.fillStyle = "#E6BA25";
+        this.ctx.fillText("Click button to continue", 745, 350);
+        this.ctx.fillText("to the next level", 780, 370);
 
-        }
     }
 
     gameWon(){
         if(this.board.win()){
-        this.level += 1;
-        const btn = document.getElementById('test');
-        btn.innerText = `Continue to level ${this.level}`;
-        this.winStatus = true;
+            this.level += 1;
+        
+            if(this.level <= 10){
+            const btn = document.getElementById('test');
+            btn.innerText = `Continue to level ${this.level}`;
+            this.winStatus = true;
+            // console.log("final score")
+            // console.log(this.board.finalScore());
+            this.playerScore += this.board.finalScore();
+            this.enableButton();} 
+
         }
     }
 
     gameLost(){
         if(this.board.lost()){
             alert("game over");
+            this.playerlives -= 1;
             const btn = document.getElementById('test');
             btn.innerText = `Restart this level`;
             this.loseStatus = true;
+            this.enableButton();
         }
+    }
+
+    gameover(){
+        if(this.playerlives === 0 || this.level > 10){
+            return true
+        } else {return false}
+    }
+
+    disableButton(){
+        let button = document.getElementById('test');
+        button.disabled = true;
+        button.style.background = "grey";
+    }
+
+    enableButton(){
+        let button = document.getElementById('test');
+        button.disabled = false;
+        button.style.background = "#22A5CF";
     }
 
  
