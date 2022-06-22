@@ -2,12 +2,14 @@ import Tile from "./tile";
 import Circuit from "./circuit";
 
 export default class Board {
-    constructor(ctx, circuits = {}, size = 7){
-        Board.STARTX = 300;
+    constructor(ctx, circuits = {}, size = 6){
+        Board.STARTX = 305;
         Board.STARTY = 155; 
         Board.DIRS = [[0, 1], [0, -1],[1, 0],[-1, 0]]
+        Board.WIDTH = 336
 
         this.size = size;
+        this.tileLength = Board.WIDTH / this.size;
         this.circuitHash = circuits;
         this.colorStatus = {};
         this.colorStacks = {};
@@ -29,8 +31,43 @@ export default class Board {
         this.activeColor = null;
         this.currentObject = null;
         this.previousObject = null;
-        this.draw()
+
+        this.time = 10;
+        this.baseScore = 1000; 
+        this.currentScore = 0;
+        this.countDown();
+        this.draw();
     }   
+
+    countDown(){
+        if (this.circuitColors.length === 0) { return}
+        this.timer = setInterval(() => { this.time -= 1 }, 1000);
+    }
+
+    completionStatus(){
+        let totalColors = this.circuitColors.length;
+        let completed = 0;
+        this.circuitColors.forEach((color)=>{
+           if(this.colorStatus[color]){ completed += 1}
+        })
+        let num = completed / totalColors; 
+        return num; 
+
+    }
+
+    updateScore(){
+        this.currentScore = this.completionStatus()* this.baseScore;
+    }
+
+    finalScore(){
+        this.updateScore();
+        base = this.currentScore;
+        bonus = this.time * 100;
+        this.currentScore = base + bonus;
+        return this.currentScore;
+    }
+
+
 
     populateGrid(){
         let newArr = [];
@@ -47,9 +84,9 @@ export default class Board {
     addCircuits(){
         Object.keys(this.circuitHash).forEach((color)=>
             this.circuitHash[color].forEach((pos)=>{
-                let y = (pos[0] * Tile.LENGTH) + Board.STARTY;
-                let x = (pos[1] * Tile.LENGTH) + Board.STARTX;
-                let circuit = new Circuit(this.ctx, x, y, color);
+                let y = (pos[0] * this.tileLength) + Board.STARTY;
+                let x = (pos[1] * this.tileLength) + Board.STARTX;
+                let circuit = new Circuit(this.ctx, x, y, this.tileLength, color);
                 circuit.pos = pos;
                 this.circuits.push(circuit);
                 this.allObjects.push(circuit);
@@ -66,14 +103,14 @@ export default class Board {
         })
   
     
-        let tile = new Tile(this.ctx, 0, 0);
+        let tile = new Tile(this.ctx, 0, 0, this.tileLength);
 
         for(let i= 0; i < this.size; i++){
             for(let j= 0; j < this.size; j++){
                 if(!circuit_poses.includes(JSON.stringify([i, j]))){
-                    let y = (i * Tile.LENGTH) + Board.STARTY;
-                    let x = (j * Tile.LENGTH) + Board.STARTX;
-                    let tile = new Tile(this.ctx, x, y);
+                    let y = (i * this.tileLength) + Board.STARTY;
+                    let x = (j * this.tileLength) + Board.STARTX;
+                    let tile = new Tile(this.ctx, x, y, this.tileLength);
                     tile.pos = [i, j];
                     this.tiles.push(tile);
                     this.allObjects.push(tile);
@@ -95,6 +132,7 @@ export default class Board {
     }
 
     draw(){
+        this.updateScore();
         this.allObjects.forEach((obj)=>{obj.draw()}
         )
     }
@@ -105,8 +143,8 @@ export default class Board {
         for(let i = 0; i < this.allObjects.length; i++){
             
             let obj = this.allObjects[i];
-            if ((x > obj.x && x < (obj.x + Tile.LENGTH)) &&
-                (y > obj.y && y < (obj.y + Tile.LENGTH))) {
+            if ((x > obj.x && x < (obj.x + this.tileLength)) &&
+                (y > obj.y && y < (obj.y + this.tileLength))) {
                 target = obj;
                 break;  
             }
@@ -151,8 +189,8 @@ export default class Board {
         let target = null;
         for (let i = 0; i < this.allObjects.length; i++) {
             let obj = this.allObjects[i];
-            if ((x > obj.x && x < (obj.x + Tile.LENGTH)) &&
-                (y > obj.y && y < (obj.y + Tile.LENGTH))) {
+            if ((x > obj.x && x < (obj.x + this.tileLength)) &&
+                (y > obj.y && y < (obj.y + this.tileLength))) {
                 target = obj;
                 break;
             }
@@ -309,7 +347,17 @@ export default class Board {
             if (!this.wireConnected(color)){result = false}
         }
         )
+        if(result){clearInterval(this.timer)}
         return result;
+    }
+
+    lost(){
+        if(this.time <=0 ){
+            clearInterval(this.timer);
+            this.time = 5;
+            return true;
+        }
+        return false;
     }
     
 

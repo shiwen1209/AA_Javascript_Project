@@ -39,9 +39,9 @@ export default class Flame {
     draw(){
         this.move();
         let y = 120; 
-        this.drawFlame([200, 200]);
-        this.drawFlame([200, y+200]);
-        this.drawFlame([200, 2*y + 200]);
+        this.drawFlame([250, 200]);
+        this.drawFlame([250, y+200]);
+        this.drawFlame([250, 2*y + 200]);
     }
 
     move(){

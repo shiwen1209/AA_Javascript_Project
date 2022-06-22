@@ -1,10 +1,10 @@
 export default class Tile {
-    constructor(ctx, x, y){
-        Tile.LENGTH = 48;
-        Tile.DEFAULTCOLOR = 'grey'
+    constructor(ctx, x, y, length){
+        Tile.DEFAULTCOLOR = 'grey';
         this.ctx = ctx;
         this.x = x;
         this.y = y;
+        this.length = length;
         this.fillColor = Tile.DEFAULTCOLOR;
         this.pos = []; // position in the grid;
         this.clicked = false;
@@ -13,11 +13,11 @@ export default class Tile {
 
     draw(){
         this.ctx.beginPath();
-        this.ctx.strokeRect(this.x, this.y, Tile.LENGTH, Tile.LENGTH);
+        this.ctx.strokeRect(this.x, this.y, this.length, this.length);
         this.ctx.strokeStyle = 'lightgrey';
         this.ctx.lineWidth = 3;
         this.ctx.fillStyle = this.fillColor;
-        this.ctx.fillRect(this.x, this.y, Tile.LENGTH, Tile.LENGTH);
+        this.ctx.fillRect(this.x, this.y, this.length, this.length);
         this.ctx.stroke();
         this.ctx.closePath();
     }

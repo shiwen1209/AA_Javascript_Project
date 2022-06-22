@@ -19,6 +19,8 @@ export default class Game {
             "Keep it up!"
         ]
 
+        Game.STATS = ["Current Level: ", "Total Score: ", "% Complete: "]
+
         this.ctx = ctx;
         this.stars = new Star(this.ctx);
         this.ship = new Ship(this.ctx);
@@ -27,6 +29,44 @@ export default class Game {
         this.level = 0
         this.draw();
         this.winStatus = false;
+        this.loseStatus = false;
+        this.gameScore = 0;
+    }
+
+    addStats(){
+
+        const lis = document.querySelectorAll('.game-status');
+        const lis_arr = Array.from(lis);
+        console.log(lis);
+        lis_arr.forEach((li) => { if (li) { li.remove() } })
+
+        const div = document.getElementById("text-area")
+        const ul = document.createElement("ul");
+        div.appendChild(ul)
+        ul.className = "game-status"
+        const li1 = document.createElement("li");
+        li1.className = "game-status"
+        li1.innerHTML = "Current Level:" + "&nbsp" + "&nbsp" + "&nbsp&nbsp&nbsp&nbsp" + `Lvl ${this.level}`
+        ul.appendChild(li1);
+
+        const li2 = document.createElement("li");
+        li2.id = "score"
+        li2.className = "game-status"
+        li2.innerHTML = `Total Points: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp1000`
+        ul.appendChild(li2);
+
+        const li3 = document.createElement("li");
+        li3.id = "completion"
+        li3.className = "game-status"
+        li3.innerHTML = `Wires completion: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp100%`
+        ul.appendChild(li3);
+
+        const li4 = document.createElement("li");
+        li4.id = "timer"
+        li4.className = "game-status"
+        li4.innerHTML = `Time left: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${this.board.time} seconds`
+        ul.appendChild(li4);
+        
     }
 
     draw(){
@@ -37,24 +77,53 @@ export default class Game {
         this.ship.draw();
         this.flame.draw();
         this.board.draw();
+
+        const li2 = document.getElementById("score");
+        if (li2) {
+            li2.innerHTML = `Total points: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${this.board.currentScore}`
+        }
+
+        const li3 = document.getElementById("completion");
+        if (li3) {
+            li3.innerHTML = `Wires completion: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${this.board.completionStatus()}`
+        }
+
+        const li4 = document.getElementById("timer");
+        if(li4){
+        li4.innerHTML = `Time left: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${this.board.time} seconds`}
         
         if(this.winStatus === false){
             this.gameWon();
+            
+        }
+
+        if(this.loseStatus === false){
+            this.gameLost();
         }
 
         if(this.winStatus){
+
+            const lis = document.querySelectorAll('.game-status');
+            const lis_arr = Array.from(lis);
+            console.log(lis);
+            lis_arr.forEach((li)=> {if(li){li.remove()}})
             this.ctx.beginPath();
-            this.ctx.fillStyle = "red"
-            this.ctx.fillRect(700, 200, 300, 250);
+            this.ctx.strokeRect(695, 240, 300, 185); 
+            this.ctx.strokeStyle = '#25B7E6';
+            this.ctx.lineWidth = 5;
+            this.ctx.fillRect(695, 240, 300, 185);
+            this.ctx.fillStyle = "#1C66BB"
             this.ctx.closePath();
 
-            this.ctx.font = "30px Arial";
-            this.ctx.fillStyle = "black";
-            this.ctx.fillText(Game.AFFIRMATIONS[this.level], 750, 300); 
+            this.ctx.font = "bold 30px Arial";
+            this.ctx.fillStyle = "#E6BA25";
+            this.ctx.fillText(Game.AFFIRMATIONS[this.level], 735, 310); 
             this.ctx.font = "20px Arial";
-            this.ctx.fillStyle = "black";
-            this.ctx.fillText("Click button above to continue", 750, 340);
-            this.ctx.fillText("to the next level", 750, 380);  
+            this.ctx.fillStyle = "#E6BA25";
+            this.ctx.fillText("Click button to continue", 745, 350);
+            this.ctx.fillText("to the next level", 780, 370);  
+            // this.ctx.fillText("Total points: ${this.board.finalScore()}", 800, 370);  
+
         }
     }
 
@@ -64,8 +133,15 @@ export default class Game {
         const btn = document.getElementById('test');
         btn.innerText = `Continue to level ${this.level}`;
         this.winStatus = true;
+        }
+    }
 
-
+    gameLost(){
+        if(this.board.lost()){
+            alert("game over");
+            const btn = document.getElementById('test');
+            btn.innerText = `Restart this level`;
+            this.loseStatus = true;
         }
     }
 

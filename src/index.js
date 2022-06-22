@@ -33,14 +33,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     let btn = document.getElementById('test');
-    let instruction = document.getElementById('instruction')
+    // console.log(btn)
+    let instructions = document.querySelectorAll('.instruction-body')
+
+    let title = document.getElementById('instruction-title')
+    console.log(instructions[0])
+    console.log(instructions.length)
 
     btn.addEventListener('click', function(e){
-        instruction.innerHTML = ""
+        for(let i=0; i < instructions.length; i++){
+            instructions[i].remove();
+        }
+        title.innerHTML = "Game Statistics";
         if (game.level === 0) { game.level += 1}
-        game.board = new Board(ctx, Level[game.level])
+        let boardSize = 6;
+        if(game.level > 10) {boardSize += 1}
+        game.board = new Board(ctx, Level[game.level], boardSize)
         game.winStatus = false;
-        
+        game.loseStatus = false;
+        game.addStats();
 
     });
 

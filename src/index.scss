@@ -1,6 +1,6 @@
 #canvas {
-    // width: 1300px;
-    // height: 600px;
+    left: 30px;
+    top: 120px;
     background-color: green;
     display: flex;
     justify-content: center;
@@ -17,7 +17,7 @@ h1 {
     display: flex;
     justify-content: center;
     font-family: 'Fascinate', cursive;
-    font-size: 40px; 
+    font-size: 50px; 
 }
 
 h2 {
@@ -29,16 +29,9 @@ div{
     justify-content: center;
 }
 
-// p.start-button{
-//     position: absolute;
-//     left: 730px;
-//     top: 460px;
-//     z-index: 1;
-// }
-
 button {
     display: inline-block;
-    background-color: #7b38d8;
+    background-color: #22A5CF;
     border-radius: 10px;
     border: 4px double #cccccc;
     color: #eeeeee;
@@ -55,12 +48,55 @@ button {
     z-index: 1;
     }
 
-#instruction{
-        width: 350px;
-        height: 300px;
-        position: absolute;
-        font-size: 18px;
-        left: 670px;
-        top: 400px;
-        z-index: 1;
+button:active{
+    background-color: #1A6FA9;
+}
+
+p.instruction-body{
+    font-family: 'Kanit', sans-serif;
+    position: absolute;
+    font-size: 18px;
+    z-index: 1;
+    width: 350px;
+    height: 300px;
+    left: 700px;
+    top: 320px;
+}
+
+ul.instruction-body {
+    font-family: 'Kanit', sans-serif;
+    position: absolute;
+    font-size: 18px;
+    z-index: 1;
+    width: 350px;
+    height: 350px;
+    left: 690px;
+    top: 420px;
+
+}
+
+#instruction-title {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 800;
+    position: absolute;
+    font-size: 24px;
+    left: 780px;
+    top: 270px;
+    z-index: 1;
+}
+
+ul.game-status {
+    font-family: 'Kanit', sans-serif;
+    position: absolute;
+    font-size: 18px;
+    z-index: 1;
+    width: 350px;
+    height: 350px;
+    left: 690px;
+    top: 350px;
+
+}
+
+ul.game-status li{
+    padding: 10px;
 }
