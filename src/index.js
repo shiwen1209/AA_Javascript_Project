@@ -23,11 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const win_sound = new Sound("./src/sounds/win.mp3");
 
 
-
     const gameView = new GameView(ctx)
 
     let btn = document.getElementById('test');
-
+    
     btn.addEventListener('click', function(e){
         btn.disabled = true; 
         btn.style.background = "grey";
@@ -42,6 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (btn.innerText === "Restart from Level 1") {
+            const begin = document.getElementById("game_background")
+            begin.loop = true;
+            begin.play();
             gameView.restart();
         }
 

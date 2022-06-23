@@ -28,10 +28,6 @@ export default class GameView{
     }
 
     start(){
-        const begin = document.getElementById("game_background")
-        begin.loop = true;
-        begin.play();
-
         this.startTimer = setInterval( ()=> {
             if (this.game.gameover()) {
                 clearInterval(this.startTimer);
@@ -151,8 +147,6 @@ export default class GameView{
         const p2 = document.getElementById("total-score");
         p2.innerHTML = `Score: ${this.game.playerScore}`;
 
-        // const div = document.getElementById("text-area");
-        // if (div) { div.remove() }
 
         const div2 = document.getElementById("result-board");
         if (!div2) {
