@@ -1,19 +1,56 @@
-export default class GameOver{
-    constructor(ctx, game){
-        this.ctx = ctx, 
-        this.game = game
+import Game from "./game";
+
+export default class GameView{
+    constructor(ctx){
+        this.ctx = ctx;
+        this.restart();
+    }
+
+    restart(){
+        this.destroy();
+        this.game = new Game(this.ctx);
         this.start();
+    }
+
+    destroy(){
+        const end = document.getElementById("game_end_background")
+        end.loop = false;
+        end.pause();
+
+        clearInterval(this.endTimer);
+        clearInterval(this.startTimer);
+
+        const div1 = document.getElementById("top-five")
+        if (div1) { div1.remove();}
+        const div2 = document.getElementById("result-board");
+        if (div2) { div2.remove();}
 
     }
 
     start(){
-        this.playSound();
-        this.draw();
+        const begin = document.getElementById("game_background")
+        begin.loop = true;
+        begin.play();
+
+        this.startTimer = setInterval( ()=> {
+            if (this.game.gameover()) {
+                clearInterval(this.startTimer);
+                this.playEnd();
+            } else {
+                this.game.draw()
+            };
+        }, 100)
+
+    }
+
+    playEnd(){
+        this.playEndSound();
+        this.drawEnd();
         this.displayTopFive();
         this.displayFinalScore();
     }
 
-    playSound(){
+    playEndSound(){
         const begin = document.getElementById("game_background")
         begin.loop = false;
         begin.pause();
@@ -23,8 +60,8 @@ export default class GameOver{
         end.play();
     }
 
-    draw(){
-        setInterval(() => {
+    drawEnd(){
+        this.endTimer = setInterval(() => {
             this.ctx.clearRect(0, 0, 1600, 750);
             this.ctx.fillStyle = "#0E2650";
             this.ctx.fillRect(0, 0, 1600, 750);

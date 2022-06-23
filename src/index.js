@@ -1,7 +1,6 @@
 import Board from './scripts/board';
-import Game from './scripts/game';
 import Sound from './scripts/sound';
-import GameOver from './scripts/gameover';
+import GameView from './scripts/game_view';
 const Level = require("./scripts/level");
 
 
@@ -23,32 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const intercept_sound = new Sound("./src/sounds/interception.mp3");
     const win_sound = new Sound("./src/sounds/win.mp3");
 
-    
-    const game = new Game(ctx);
-    let gametimer = setInterval(function () {
-        if (game.gameover()) {
-            clearInterval(gametimer);
-            const gameover = new GameOver(ctx, game);
-        } else {
-            game.draw()
-        };
-    }, 100)
-    
-    
-    canvas.addEventListener("click", (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        game.board.clickBoard(x, y);
-    })
 
-    canvas.addEventListener("mousemove", (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        game.board.hoverBoard(x, y);
-    })
 
+    const gameView = new GameView(ctx)
 
     let btn = document.getElementById('test');
 
@@ -66,19 +42,40 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (btn.innerText === "Restart from Level 1") {
-            const background_sound = document.getElementById("game_background")
-            background_sound.loop = true;
-            background_sound.play();
-            game = new Game(ctx);
+            gameView.restart();
         }
 
-        if (game.level === 0) { game.level += 1}
+        if (gameView.game.level === 0) { gameView.game.level += 1}
         let boardSize = 6;
-        if(game.level > 10) {boardSize += 1}
-        game.board = new Board(ctx, Level[game.level], boardSize);
+        if(gameView.game.level > 10) {boardSize += 1}
+        gameView.game.board = new Board(ctx, Level[gameView.game.level], boardSize);
 
     });
 
+
+
+    canvas.addEventListener("click", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        if (gameView) {
+            gameView.game.board.clickBoard(x, y);
+        }
+    })
+
+
+
+    canvas.addEventListener("mousemove", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        if (gameView) {
+            gameView.game.board.hoverBoard(x, y);
+        }
+    })
+
+
+    
 
     let sound_button = document.getElementById('sound');
 

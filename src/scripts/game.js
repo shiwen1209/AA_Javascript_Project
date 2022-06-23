@@ -49,10 +49,13 @@ export default class Game {
     }
 
     drawScoreCard(){
+        // const div = document.getElementById("fade-in");
         const p1 = document.getElementById("life");
+
         p1.innerHTML = `Lives: ${this.playerlives}`;
 
         const p2 = document.getElementById("total-score");
+
         p2.innerHTML = `Score: ${this.playerScore}`;
 
         const li1 = document.getElementById("lvl");
