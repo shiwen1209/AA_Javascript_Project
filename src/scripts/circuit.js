@@ -10,14 +10,17 @@ export default class Circuit extends Tile {
     }
 
     draw(){
+        let img = new Image();
+        img.src = "./src/images/circuit.png";
+        this.ctx.drawImage(img, this.x, this.y, this.length, this.length)
 
         let x = (this.x + this.x + this.length) / 2;
         let y = (this.y + this.y + this.length) / 2;
-        let r = (this.length - 20) / 2;
+        let r = (this.length - 28) / 2;
         this.ctx.beginPath();
         this.ctx.arc(x, y, r, 0, Math.PI * 2);
         this.ctx.strokeStyle = this.color;
-        this.ctx.lineWidth = 5;
+        this.ctx.lineWidth = 7;
         this.ctx.stroke();
         this.ctx.closePath();
     }

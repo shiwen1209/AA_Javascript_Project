@@ -31,12 +31,14 @@ export default class Board {
         this.activeColor = null;
         this.currentObject = null;
         this.previousObject = null;
-
         this.time = 20;
         this.baseScore = 200; // per color pair 
         this.currentScore = 0;
+        this.winStatus = false;
+        this.loseStatus = false;
         this.countDown();
         this.draw();
+        this.addStats();
     }   
 
     countDown(){
@@ -62,10 +64,16 @@ export default class Board {
     }
 
     finalScore(){
-        this.updateScore();
-        let base = this.currentScore;
-        let bonus = this.time * 100;
-        this.currentScore = base + bonus;
+        if(this.win()){
+            this.updateScore();
+            let base = this.currentScore;
+            let bonus = this.time * 100;
+            this.currentScore = base + bonus;
+
+        } else if (this.lost()) {
+            this.currentScore = 0;
+        }
+
         return this.currentScore;
     }
 
@@ -139,7 +147,11 @@ export default class Board {
         )
     }
 
+   
     clickBoard(x, y){
+
+        if(this.winStatus || this.loseStatus){return}
+
         let target = null;
     
         for(let i = 0; i < this.allObjects.length; i++){
@@ -152,42 +164,55 @@ export default class Board {
             }
         }
 
+        console.log("target is");
+        console.log(target);
+
         if(target != null && target.constructor === Circuit){
-            console.log(this.activeColor);
-            console.log(target.color);
-            if (this.activeColor === Tile.DEFAULTCOLOR){
-                this.activeColor = null;
-            }
-            else if (this.activeColor != target.color){
+            // console.log(this.activeColor);
+            // console.log(target.color);
+            // if (this.activeColor === Tile.DEFAULTCOLOR){
+            //     this.activeColor = null;
+            // }
+            // else 
+            if (this.activeColor != target.color){
+
+                const switch_sound = document.getElementById("switch")
+                switch_sound.play();
+
                 this.activeColor = target.color;
                 target.fillColor = target.color;
+
             } else if (this.activeColor === target.color){
                 
-                if (this.wireConnected(this.activeColor)) {
+                if (this.wireConnected(this.activeColor) && !this.win()) {
+                    const win_sound = document.getElementById("win")
+                    win_sound.play();
                     console.log(`${this.activeColor} connected!`)
+                } else{
+                    const switch_sound = document.getElementById("switch")
+                    switch_sound.play();
+
                 }
                 console.log("win? :" + this.win());
                 console.log(this.colorStatus);
 
 
-                // if(this.win()){
-                    
-                // }
-
-                this.activeColor = null;
-                   
-        
+                this.activeColor = null;}
+                
         } else if (target != null && target.constructor === Tile) {
+            const connect_sound = getElementById("connected")
+            connect_sound.play();
             this.activeColor = target.clickTile(this.activeColor);
-            if (this.win()) {
-                alert("You won!");
-            }
+            // if (this.win()) {
+
+            // }
         }
 
-        console.log("active color now is" + this.activeColor);
-    }}
+        // console.log("active color now is" + this.activeColor);
+    }
 
     hoverBoard(x, y){
+        if (this.winStatus || this.loseStatus) { return }
         let target = null;
         for (let i = 0; i < this.allObjects.length; i++) {
             let obj = this.allObjects[i];
@@ -203,12 +228,12 @@ export default class Board {
         }
         this.currentObject = target;
 
-        // if(this.currentObject != null && this.previousObject != null){
-        // // console.log("current object: " + this.currentObject.pos)
-        // // console.log("previous object: " + this.previousObject.pos)
-        // }
+
         if (target.constructor === Tile) {
             if (this.intercepted(target.pos, this.activeColor)){
+                const intercept_sound = document.getElementById("intercepted")
+                intercept_sound.play();
+
                 let target_color = target.fillColor;
                 this.tiles.forEach((tile)=>{
                     if(tile.fillColor === target_color){
@@ -226,10 +251,10 @@ export default class Board {
                     sameColor = true;
                 }
             })
+
             
 
             if (sameColor === true) { 
-
                 let flipped = target.flip(this.activeColor);
                 if(flipped && Object.keys(this.colorStacks).includes(this.activeColor)
                 ){
@@ -240,18 +265,13 @@ export default class Board {
 
 
                 if(target.fillColor === this.activeColor && target.fillColor != Tile.DEFAULTCOLOR){
-                    console.log("hahahahah")
-                    console.log(target.fillColor);
-                    console.log(this.colorStacks);
                     let stack = this.colorStacks[this.activeColor];
                     if(stack.includes(JSON.stringify(target.pos))){
-                        console.log("woooooo")
                         let i = stack.indexOf(JSON.stringify(target.pos));
                         let eliminate = stack.splice(i+1);
-                        console.log("eliminate is" + eliminate);
                         eliminate.forEach((pos_str)=>{
                             let pos = JSON.parse(pos_str);
-                            this.grid[pos[0]][pos[1]].flip("grey");
+                            this.grid[pos[0]][pos[1]].flip(Tile.DEFAULTCOLOR);
                         })
 
                     }
@@ -269,7 +289,6 @@ export default class Board {
 
 
     wireConnected(color){
-        // console.log("wire color is " + color);
         let startPos = this.circuitHash[color][0];
         let endPos = this.circuitHash[color][1];
         if (this.searchCircuit(startPos, endPos)){
@@ -282,19 +301,15 @@ export default class Board {
     }
 
     searchCircuit(startPos, endPos, visited = []){
-        // console.log("hello");
-        // console.log("start pos is " + startPos);
-        // console.log("end pos is" + endPos);
-        // console.log(Board.DIRS.length);
+
         let targetObj = this.grid[endPos[0]][endPos[1]];
         let sameColor = [];
         for (let i = 0; i < Board.DIRS.length; i++) {
-            // console.log("i is " + i);
+
             let currentX = startPos[0] + Board.DIRS[i][0];
             let currentY = startPos[1] + Board.DIRS[i][1];  
             let currentObj = null;
-            // console.log("dirs")
-            // console.log(currentX, currentY)
+
             if (this.validPos([currentX, currentY])){
                 currentObj = this.grid[currentX][currentY];
                 if (currentObj.constructor === Circuit && 
@@ -312,8 +327,6 @@ export default class Board {
                 }
         }}
 
-        // console.log("samecolor")
-        // console.log(sameColor)
 
         if (sameColor.length === 0){return false}
         
@@ -349,17 +362,66 @@ export default class Board {
             if (!this.wireConnected(color)){result = false}
         }
         )
-        if(result){clearInterval(this.timer)}
+        if(result){
+            this.winStatus = true
+            clearInterval(this.timer)
+        }
         return result;
     }
 
     lost(){
         if(this.time <=0 ){
             clearInterval(this.timer);
-            this.time = 5;
+            this.loseStatus = true; 
+            // this.time = 5;
             return true;
         }
         return false;
+    }
+
+    addStats() {
+
+        if(this.circuitColors.length === 0){return}
+
+        const oldDiv = document.getElementById("text-area")
+        if (oldDiv) { oldDiv.remove() }
+
+        const oldDiv2 = document.getElementById("result-board")
+        if (oldDiv2) { oldDiv2.remove() }
+
+        const div = document.createElement("div");
+        div.id = "text-area"
+        document.body.append(div);
+
+        const h2 = document.createElement("h2");
+        h2.id = "instruction-title";
+        h2.innerHTML = "Game Statistics";
+        div.appendChild(h2);
+
+        const ul = document.createElement("ul");
+        ul.className = "game-status"
+        div.appendChild(ul)
+
+        const li1 = document.createElement("li");
+        li1.id = "lvl";
+        li1.className = "game-status";
+        ul.appendChild(li1);
+
+        const li2 = document.createElement("li");
+        li2.id = "score";
+        li2.className = "game-status";
+        ul.appendChild(li2);
+
+        const li3 = document.createElement("li");
+        li3.id = "completion";
+        li3.className = "game-status";
+        ul.appendChild(li3);
+
+        const li4 = document.createElement("li");
+        li4.id = "timer";
+        li4.className = "game-status";
+        ul.appendChild(li4);
+
     }
     
 

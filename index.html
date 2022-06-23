@@ -5,12 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="./dist/main.css" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fascinate&family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fascinate&family=Kanit:wght@300&family=Roboto&display=swap"
         rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fascinate&family=Kanit:wght@300&family=Roboto&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="./dist/main.js"></script>
     <title>Space Rescue</title>
 </head>
@@ -20,34 +26,49 @@
 
 <body>
     
+<div class="fade-in">
+    <h1>Space Rescue</h1>
+</div>
 
-<h1>Space Rescue</h1>
-
+<div class="fade-in">
 <h2><button id="test">Start level 1</button></h2>
+</div>
 
 
-<p class= "game-text" id = "life"></p>
-<p  class= "game-text" id="total-score"></p>
 
-<div id = "canvas">
+
+<div class="fade-in">
+    <div id="sound" class="icon">
+        <i class="fa fa-volume-off" aria-hidden="true"></i>
+    </div>
+    
+    <div id="access" class="icon">
+        <i class="fa fa-question" aria-hidden="true"></i>
+    </div>
+
+    <p class= "game-text" id = "life"></p>
+    <p  class= "game-text" id="total-score"></p>
+</div>
+
+<div class="fade-in" id = "canvas">
 <canvas width="900" height="900" ></canvas>
 </div>
 
 
 <div id="text-area">
+    <p class= "game-text" id="instruction-title">Game Instruction</p>
 
-<p class= "game-text" id="instruction-title">Game Instruction</p>
-
-<p class ="instruction-body">
-    The spaceship is saling through the universe , the wires are messed up. Connect circuits of the same color to save the ship!
-</p>
-<ul class = "instruction-body">
-    <li class ="instruction-body">Click the circuits to start connecting the wires</li>
-    <li class ="instruction-body">Drag your mouse to where you want the wires to</li>
-    <li class ="instruction-body">Click the circuit again to connect</li>
-</ul>
-
+    <p class ="instruction-body">
+        The spaceship is saling through the universe , the wires are messed up. Connect circuits of the same color to save the ship!
+    </p>
+    <ul class = "instruction-body">
+        <li class ="instruction-body">Click the circuits to start connecting the wires</li>
+        <li class ="instruction-body">Drag your mouse to where you want the wires to</li>
+        <li class ="instruction-body">Click the circuit again to connect</li>
+    </ul>
 </div>
+
+
 
 
 </body>
