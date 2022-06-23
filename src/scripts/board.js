@@ -31,7 +31,7 @@ export default class Board {
         this.activeColor = null;
         this.currentObject = null;
         this.previousObject = null;
-        this.time = 20;
+        this.time = 3;
         this.baseScore = 200; // per color pair 
         this.currentScore = 0;
         this.winStatus = false;
@@ -231,7 +231,7 @@ export default class Board {
 
         if (target.constructor === Tile) {
             if (this.intercepted(target.pos, this.activeColor)){
-                const intercept_sound = document.getElementById("intercepted")
+                const intercept_sound = document.getElementById("interception")
                 intercept_sound.play();
 
                 let target_color = target.fillColor;

@@ -178,7 +178,7 @@ ul.top-five {
   z-index: 1;
   width: 350px;
   height: 350px;
-  left: 390px;
+  left: 360px;
   top: 340px;
 }
 
@@ -187,12 +187,13 @@ ul.top-five li {
 }
 
 h3.top-five {
+  font-family: "Kanit", sans-serif;
   position: absolute;
   font-size: 24px;
   z-index: 1;
   width: 350px;
   height: 50px;
-  left: 600px;
+  left: 440px;
   top: 280px;
 }
 

@@ -27,8 +27,6 @@ export default class Game {
         this.board = new Board(this.ctx, Level[this.level]);
         this.level = 0
         this.draw();
-        // this.board.winStatus = false;
-        // this.board.loseStatus = false;
         this.playerScore = 0;
         this.playerlives = 3;
     }
@@ -100,8 +98,6 @@ export default class Game {
 
         const p2 = document.getElementById("total-score");
         p2.innerHTML = `Score: ${this.playerScore}`;
-
-
 
         const div = document.getElementById("text-area");
         if (div) { div.remove() }
@@ -179,10 +175,7 @@ export default class Game {
             this.level += 1;
             if(this.level <= 10){
             const btn = document.getElementById('test');
-            btn.innerText = `Continue to level ${this.level}`;
-            // this.board.winStatus = true;
-            // console.log("final score")
-            // console.log(this.board.finalScore());
+            btn.innerText = `Continue to Level ${this.level}`;
             this.playerScore += this.board.finalScore();
             this.enableButton();} 
 
@@ -191,8 +184,6 @@ export default class Game {
 
     gameLost(){
         if(this.board.lost()){
-            // alert("game over");
-
             this.playerlives -= 1;
             const btn = document.getElementById('test');
             btn.innerText = `Restart this level`;
@@ -200,7 +191,6 @@ export default class Game {
             const timeup_sound = document.getElementById("timeup")
             timeup_sound.play();
 
-            // this.board.loseStatus = true;
             this.enableButton();
         }
     }
