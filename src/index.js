@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     const gameView = new GameView(ctx)
+    // demo only
+    // gameView.game.level = 10;
 
     let btn = document.getElementById('test');
     

@@ -25,7 +25,7 @@ export default class Game {
         this.ship = new Ship(this.ctx);
         this.flame = new Flame(this.ctx);
         this.board = new Board(this.ctx, Level[this.level]);
-        this.level = 0
+        this.level = 0;
         this.draw();
         this.playerScore = 0;
         this.playerlives = 3;
@@ -171,16 +171,17 @@ export default class Game {
 
     gameWon(){
         if(this.board.win()){
-
             const tada_sound = document.getElementById("tada")
             tada_sound.play();
 
+            this.playerScore += this.board.finalScore();
+            this.enableButton();
+
             this.level += 1;
             if(this.level <= 10){
-            const btn = document.getElementById('test');
-            btn.innerText = `Continue to Level ${this.level}`;
-            this.playerScore += this.board.finalScore();
-            this.enableButton();} 
+                const btn = document.getElementById('test');
+                btn.innerText = `Continue to Level ${this.level}`;
+            } 
 
         }
     }

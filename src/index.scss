@@ -329,3 +329,47 @@ h3.top-five {
     margin: 0;
     padding: 0;
 }
+
+a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+
+.icon2:hover {
+    background-color: lightgray;
+}
+
+.icon2:active {
+    background-color: darkolivegreen;
+}
+
+#git {
+    left: 345px;
+    top: 105px;
+
+}
+
+#linkedin {
+    left: 445px;
+    top: 105px;
+    padding: 0;
+}
+
+.icon2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+    color: whitesmoke;
+    z-index: 1;
+    border: 2px solid black;
+    border-radius: 50%;
+    padding-right: 2px;
+    background-color: black;
+
+}
