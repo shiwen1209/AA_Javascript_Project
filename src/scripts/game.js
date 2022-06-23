@@ -124,7 +124,7 @@ export default class Game {
 
         const li1 = document.createElement("li");
         ul.appendChild(li1);
-        li1.innerHTML = `You scored ${this.board.finalScore()} ptx this round!`
+        li1.innerHTML = `You scored ${this.board.finalScore()} pts this round!`
 
         const li2 = document.createElement("li");
         ul.appendChild(li2);
