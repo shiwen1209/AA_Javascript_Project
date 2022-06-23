@@ -5,10 +5,10 @@ The game is easily scalable. More levels can be added and board can be randomize
 
 ## Technologies Used
 Space Rescue was built using the following technologies:
-Canvas API to render video and face filters and save captured images
-Webpack and Babel to bundle and transpile the source JavaScript code
-npm to manage project dependencies
-Sass to bring variables to stylesheets
+- Canvas API to render video and face filters and save captured images
+- Webpack and Babel to bundle and transpile the source JavaScript code
+- npm to manage project dependencies
+- Sass to bring variables to stylesheets
 
 
 ## Functionality & MVPs
@@ -29,9 +29,7 @@ Sass to bring variables to stylesheets
 5. Once a player passes all 10 levels or lost all three lives before level 10, the game is over
 6. Game statistics and scores are updated, stored and displayed for every level and final reults are displayed at the end of the game
 
-
-
 ## Upcoming Features
-1. Randomized board for every level to improve playablility
-2. Top five player board and ability for user input
-3. Accessibility feature 
+- Randomized board for every level to improve playablility
+- Top five player board and ability for user input
+- Accessibility feature 
