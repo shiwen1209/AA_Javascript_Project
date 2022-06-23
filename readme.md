@@ -1,7 +1,7 @@
 # Space Rescue
 Space Rescue is a line puzzle game, with spaceship and the space in the background. It is a single player game, it has 10 levels. Player has 3 lives
 
-The game is easily scalable. Many more levels can be added with little effort and the board can be randomized to improve playability.
+The game is easily scalable. Many more levels can be added with little effort and the board can be randomized to improve playability
 
 ## Technologies Used
 Space Rescue was built using the following technologies:
@@ -19,7 +19,7 @@ Space Rescue was built using the following technologies:
 3. If the mouse hover over a tile that already has the same as the activie color, the tile will change back to its default color
 4. If two colors intercept each other on a tile, all tiles with the previous color on the tile will disappear
 5. Once a same colored circles are connected, this wire connection is completed
-6. Once all pairs of colored circles are connected, player pass the level.
+6. Once all pairs of colored circles are connected, player pass the level
 
 ### Game Progression functionality
 1. Player can pass a level if they connect all the circles in the allotted time defined in the timer
