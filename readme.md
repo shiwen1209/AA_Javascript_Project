@@ -7,7 +7,7 @@ The game is easily scalable. Many more levels can be added with little effort an
 
 ## Technologies Used
 Space Rescue was built using the following technologies:
-- Canvas API to render video and face filters and save captured images
+- Canvas API to render game background, board and animations
 - Webpack and Babel to bundle and transpile the source JavaScript code
 - npm to manage project dependencies
 - Sass to bring variables to stylesheets
