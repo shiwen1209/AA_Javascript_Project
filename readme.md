@@ -1,6 +1,8 @@
 # Space Rescue
 Space Rescue is a line puzzle game, with spaceship and the space in the background. It is a single player game, it has 10 levels. Player has 3 lives
 
+![This is an image](/src/images/game_screenshot.png)
+
 The game is easily scalable. Many more levels can be added with little effort and the board can be randomized to improve playability
 
 ## Technologies Used
