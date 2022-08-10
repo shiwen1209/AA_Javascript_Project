@@ -4,7 +4,7 @@
 #canvas {
   left: 30px;
   top: 120px;
-  background-color: green;
+  background-color: #0E2650;
   display: flex;
   justify-content: center;
   position: absolute;
@@ -13,6 +13,9 @@
 
 body {
   background-color: #0E2650;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -30,7 +33,6 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
   font-size: 25px;
   width: 30px;
   height: 30px;
@@ -51,14 +53,7 @@ h1 {
   background-color: darkolivegreen;
 }
 
-#sound {
-  left: 940px;
-  top: 105px;
-}
-
 #access {
-  left: 1040px;
-  top: 105px;
   padding: 0;
 }
 
@@ -313,21 +308,17 @@ a {
 }
 
 #git {
-  left: 345px;
-  top: 105px;
+  padding: 0px;
 }
 
 #linkedin {
-  left: 445px;
-  top: 105px;
-  padding: 0;
+  padding: 0px;
 }
 
 .icon2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
   font-size: 20px;
   width: 30px;
   height: 30px;
@@ -338,4 +329,26 @@ a {
   border-radius: 50%;
   padding-right: 2px;
   background-color: black;
+}
+
+#group-of-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  padding: 0px;
+  margin: 0px;
+  height: 80px;
+}
+
+.pair-of-icons {
+  width: 20%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px;
+  margin: 0px;
+  width: 150px;
 }

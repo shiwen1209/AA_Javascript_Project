@@ -31,8 +31,7 @@ export default class Board {
         this.activeColor = null;
         this.currentObject = null;
         this.previousObject = null;
-        //demo//
-        this.time = 20;
+        this.time = 30;
         this.baseScore = 200; // per color pair 
         this.currentScore = 0;
         this.winStatus = false;
