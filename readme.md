@@ -1,7 +1,7 @@
 # Space Rescue
 Space Rescue is a line puzzle game, with spaceship and the space in the background. It is a single player game, it has 10 levels. Player has 3 lives
 
-![This is an image](/src/images/game_screenshot.png)
+https://user-images.githubusercontent.com/39010644/184063729-e83dad05-e708-4515-93a1-a075633f8d9d.mov
 
 The game is easily scalable. Many more levels can be added with little effort and the board can be randomized to improve playability
 
@@ -13,8 +13,7 @@ Space Rescue was built using the following technologies:
 - Sass to bring variables to stylesheets
 
 
-## Functionality & MVPs
-
+## Features
 ### Game Board functionality: 
 1. If player click a colored circle for the first time, the color of the circle will become the activie color
 2. Player subsequently hovers the mouse over the tiles on the board, tiles will change color to the active color
