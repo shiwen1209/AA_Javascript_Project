@@ -22,6 +22,75 @@ Space Rescue was built using the following technologies:
 5. Once a same colored circles are connected, this wire connection is completed
 6. Once all pairs of colored circles are connected, player pass the level
 
+```js
+//game.js
+export default class Game {
+    constructor(ctx){
+        this.ctx = ctx;
+        this.stars = new Star(this.ctx);
+        this.ship = new Ship(this.ctx);
+        this.flame = new Flame(this.ctx);
+        this.board = new Board(this.ctx, Level[this.level]);
+        this.level = 0;
+        this.draw();
+        this.playerScore = 0;
+        this.playerlives = 3;
+    }
+
+    checkWinLose(){
+        if (this.board.winStatus === false) {
+            this.gameWon();
+        } else if (this.board.winStatus){
+            this.drawWiningMessage();
+        }
+
+        if (this.board.loseStatus === false) {
+            this.gameLost();
+        } else if (this.board.loseStatus){
+            this.drawLosingMessage();
+        }
+    }
+    
+    gameWon(){
+        if(this.board.win()){
+            const tada_sound = document.getElementById("tada")
+            tada_sound.play();
+
+            this.playerScore += this.board.finalScore();
+            this.enableButton();
+
+            this.level += 1;
+            if(this.level <= 10){
+                const btn = document.getElementById('test');
+                btn.innerText = `Continue to Level ${this.level}`;
+            } 
+
+        }
+    }
+
+    gameLost(){
+        if(this.board.lost()){
+            this.playerlives -= 1;
+            const btn = document.getElementById('test');
+            btn.innerText = `Restart this level`;
+
+            const timeup_sound = document.getElementById("timeup")
+            timeup_sound.play();
+
+            this.enableButton();
+        }
+    }
+
+    gameover(){
+        if(this.playerlives === 0 || this.level > 10){
+            return true
+        } else {return false}
+    }
+    ...
+   }
+
+```
+
 ### Game Progression functionality
 1. Player can pass a level if they connect all the circles in the allotted time defined in the timer
 2. Player can lose a game if they fail to connect all the circles in the allotted time defined in the timer
