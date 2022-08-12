@@ -111,8 +111,6 @@ export default class Board {
                 circuit_poses.push(JSON.stringify(pos));
             })
         })
-  
-    
         let tile = new Tile(this.ctx, 0, 0, this.tileLength);
 
         for(let i= 0; i < this.size; i++){
@@ -164,16 +162,10 @@ export default class Board {
             }
         }
 
-        console.log("target is");
-        console.log(target);
+        // console.log("target is");
+        // console.log(target);
 
         if(target != null && target.constructor === Circuit){
-            // console.log(this.activeColor);
-            // console.log(target.color);
-            // if (this.activeColor === Tile.DEFAULTCOLOR){
-            //     this.activeColor = null;
-            // }
-            // else 
             if (this.activeColor != target.color){
 
                 const switch_sound = document.getElementById("switch")
@@ -193,10 +185,8 @@ export default class Board {
                     switch_sound.play();
 
                 }
-                console.log("win? :" + this.win());
-                console.log(this.colorStatus);
-
-
+                // console.log("win? :" + this.win());
+                // console.log(this.colorStatus);
                 this.activeColor = null;}
                 
         } else if (target != null && target.constructor === Tile) {
@@ -273,17 +263,9 @@ export default class Board {
                             let pos = JSON.parse(pos_str);
                             this.grid[pos[0]][pos[1]].flip(Tile.DEFAULTCOLOR);
                         })
-
                     }
-                
-
                 }
-            
             }
-
-
-            
-            
         }
     }
 
@@ -301,11 +283,9 @@ export default class Board {
     }
 
     searchCircuit(startPos, endPos, visited = []){
-
         let targetObj = this.grid[endPos[0]][endPos[1]];
         let sameColor = [];
         for (let i = 0; i < Board.DIRS.length; i++) {
-
             let currentX = startPos[0] + Board.DIRS[i][0];
             let currentY = startPos[1] + Board.DIRS[i][1];  
             let currentObj = null;
@@ -326,10 +306,7 @@ export default class Board {
                         visited.push(JSON.stringify([currentX, currentY]));
                 }
         }}
-
-
         if (sameColor.length === 0){return false}
-        
         let result = false;
         sameColor.forEach((pos)=>{
             if (this.searchCircuit(pos, endPos, visited)) { result = true }
