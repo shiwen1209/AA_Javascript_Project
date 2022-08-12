@@ -18,8 +18,6 @@ export default class Game {
             "Keep it up!",
             "You're on a roll!",
         ]
-
-
         this.ctx = ctx;
         this.stars = new Star(this.ctx);
         this.ship = new Ship(this.ctx);
@@ -30,8 +28,6 @@ export default class Game {
         this.playerScore = 0;
         this.playerlives = 3;
     }
-
-
 
 
     draw(){
@@ -81,7 +77,6 @@ export default class Game {
     }
 
     checkWinLose(){
- 
         if (this.board.winStatus === false) {
             this.gameWon();
         } else if (this.board.winStatus){
