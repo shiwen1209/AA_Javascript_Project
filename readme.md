@@ -22,72 +22,52 @@ Space Rescue was built using the following technologies:
 5. Once a same colored circles are connected, this wire connection is completed
 6. Once all pairs of colored circles are connected, player pass the level
 
+* Using depth-first-search to identify if wires are connected
+
 ```js
-//game.js
-export default class Game {
-    constructor(ctx){
-        this.ctx = ctx;
-        this.stars = new Star(this.ctx);
-        this.ship = new Ship(this.ctx);
-        this.flame = new Flame(this.ctx);
-        this.board = new Board(this.ctx, Level[this.level]);
-        this.level = 0;
-        this.draw();
-        this.playerScore = 0;
-        this.playerlives = 3;
+//board.js
+    wireConnected(color){
+        let startPos = this.circuitHash[color][0];
+        let endPos = this.circuitHash[color][1];
+        if (this.searchCircuit(startPos, endPos)){
+            this.colorStatus[color] = true;
+            return true;
+        } else {
+            this.colorStatus[color] = false;
+            return false;
+        } ;
     }
 
-    checkWinLose(){
-        if (this.board.winStatus === false) {
-            this.gameWon();
-        } else if (this.board.winStatus){
-            this.drawWiningMessage();
-        }
-
-        if (this.board.loseStatus === false) {
-            this.gameLost();
-        } else if (this.board.loseStatus){
-            this.drawLosingMessage();
-        }
+    searchCircuit(startPos, endPos, visited = []){
+        let targetObj = this.grid[endPos[0]][endPos[1]];
+        let sameColor = [];
+        for (let i = 0; i < Board.DIRS.length; i++) {
+            let currentX = startPos[0] + Board.DIRS[i][0];
+            let currentY = startPos[1] + Board.DIRS[i][1];  
+            let currentObj = null;
+            if (this.validPos([currentX, currentY])){
+                currentObj = this.grid[currentX][currentY];
+                if (currentObj.constructor === Circuit && 
+                    currentObj.color === targetObj.color &&
+                    currentObj.pos[0]=== endPos[0] &&
+                    currentObj.pos[1]=== endPos[1]
+                    ){
+                        return true;
+                    }
+                else if (currentObj.constructor === Tile &&
+                    currentObj.fillColor === targetObj.color) {
+                    if (!visited.includes(JSON.stringify([currentX, currentY]))){
+                        sameColor.push([currentX, currentY])};
+                        visited.push(JSON.stringify([currentX, currentY]));
+                }
+        }}
+        if (sameColor.length === 0){return false}
+        let result = false;
+        sameColor.forEach((pos)=>{
+            if (this.searchCircuit(pos, endPos, visited)) { result = true }
+        })
+        return result
     }
-    
-    gameWon(){
-        if(this.board.win()){
-            const tada_sound = document.getElementById("tada")
-            tada_sound.play();
-
-            this.playerScore += this.board.finalScore();
-            this.enableButton();
-
-            this.level += 1;
-            if(this.level <= 10){
-                const btn = document.getElementById('test');
-                btn.innerText = `Continue to Level ${this.level}`;
-            } 
-
-        }
-    }
-
-    gameLost(){
-        if(this.board.lost()){
-            this.playerlives -= 1;
-            const btn = document.getElementById('test');
-            btn.innerText = `Restart this level`;
-
-            const timeup_sound = document.getElementById("timeup")
-            timeup_sound.play();
-
-            this.enableButton();
-        }
-    }
-
-    gameover(){
-        if(this.playerlives === 0 || this.level > 10){
-            return true
-        } else {return false}
-    }
-    ...
-   }
 
 ```
 
